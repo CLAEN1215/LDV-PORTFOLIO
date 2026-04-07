@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lance G. De Vera — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+</section>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --accent: #e8ff47;
+    --accent2: #ff4d6d;
+    --text: #f0ede6;
+    --muted: #6b6b6b;
+    --border: rgba(255,255,255,0.07);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* --- HERO --- */
+  #hero {
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 30%, rgba(232,255,71,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,77,109,0.06) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
+
+  .hero-image {
+  position: absolute;
+  right: 10%;
+  bottom: -15%;
+  height: 120%;
+  max-height: 800px;
+  object-fit: contain;
+
+  /* aesthetic match to your theme */
+  filter: brightness(0.9);
+  opacity: 0.85;
+  mix-blend-mode: lighten;
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.hero-image {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 14vw, 13rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    position: relative;
+    color: var(--text);
+  }
+
+  .hero-name span {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(240,237,230,0.25);
+  }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2rem;
+    position: relative;
+  }
+
+  .hero-tagline {
+    max-width: 420px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0a0a0a;
+    padding: 0.85rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .hero-cta:hover { background: #d4eb00; transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: var(--muted);
+  }
+
+  /* --- ABOUT --- */
+  #about {
+    padding: 8rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-heading {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    color: var(--text);
+  }
+
+  .about-right { padding-top: 0.5rem; }
+
+  .about-bio {
+    font-size: 15px;
+    color: rgba(240,237,230,0.7);
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+
+  .about-bio strong { color: var(--accent); font-weight: 400; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .skill-item {
+    background: var(--bg);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .skill-item:hover { background: var(--bg3); color: var(--text); }
+
+  /* --- PROJECTS --- */
+  #projects {
+    padding: 8rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .projects-heading {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 0.95;
+  }
+
+  .project-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+    background: var(--bg);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+
+  .project-item:hover { background: var(--bg2); }
+  .project-item:hover::before { transform: scaleY(1); }
+
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .project-info { }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.25rem;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 580px;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 0.6rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .project-preview {
+    width: 140px;
+    height: 90px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .project-preview-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    transition: transform 0.3s;
+  }
+
+  .project-item:hover .project-preview-inner { transform: scale(1.05); }
+
+  .preview-1 { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #4fc3f7; }
+  .preview-2 { background: linear-gradient(135deg, #1a0a0a, #2d1515); color: #ff6b6b; }
+  .preview-3 { background: linear-gradient(135deg, #0a1a0a, #0d2b0d); color: #69f0ae; }
+  .preview-4 { background: linear-gradient(135deg, #1a1500, #2b2200); color: #ffeb3b; }
+
+  /* --- CONTACT --- */
+  #contact {
+    padding: 8rem 3rem;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.9;
+  }
+
+  .contact-heading em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(240,237,230,0.3);
+  }
+
+  .contact-right { }
+
+  .contact-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0; }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 15px;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  .contact-link-arrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .contact-link:hover .contact-link-arrow {
+    transform: translate(4px, -4px);
+    color: var(--accent);
+  }
+
+  .email-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .email-cta:hover { background: var(--accent); color: #0a0a0a; }
+
+  /* --- FOOTER --- */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-built {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-built span { color: var(--accent); }
+
+  /* --- ANIMATIONS --- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim { opacity: 0; }
+  .anim.visible { animation: fadeUp 0.7s ease forwards; }
+
+  .hero-label { animation: fadeUp 0.6s ease 0.2s forwards; opacity: 0; }
+  .hero-name { animation: fadeUp 0.7s ease 0.35s forwards; opacity: 0; }
+  .hero-bottom { animation: fadeUp 0.6s ease 0.55s forwards; opacity: 0; }
+
+  /* --- CURSOR DOT --- */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s;
+    mix-blend-mode: difference;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    #hero { padding: 0 1.5rem 4rem; }
+    #about, #projects, #contact { padding: 5rem 1.5rem; }
+    #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; }
+    .projects-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .project-item { grid-template-columns: 40px 1fr; }
+    .project-preview { display: none; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .hero-scroll { display: none; }
+  }
+
+  @media (max-width: 768px) {
+  .hero-image {
+    position: relative;
+    height: auto;
+    width: 100%;
+    max-width: 280px;
+    margin-top: 2rem;
+    right: auto;
+    opacity: 1;
+    mix-blend-mode: normal;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">LGdV</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <img src="pogi.png" alt="Lance De Vera" class="hero-image">
+
+  <div class="hero-label">Student Developer  — Manila, PH</div>
+
+  <div class="hero-name">
+    Lance G.<br><span>De Vera</span>
+  </div>
+
+  <div class="hero-bottom">
+    <p class="hero-tagline">
+      Building digital experiences that live at the intersection of bold design and clean code.
+      I turn ideas into interfaces people remember.
+    </p>
+    <a href="#projects" class="hero-cta">View Work ↓</a>
+    <div class="hero-scroll">Scroll</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-label">// 01 — About</div>
+    <h2 class="about-heading anim">Crafting Digital Worlds</h2>
+  </div>
+
+  <div class="about-right anim">
+    <p class="about-bio">
+      I'm <strong>Lance G. De Vera</strong>, a creative developer and UI/UX designer based in Manila. I specialize in building
+      visually striking, high-performance digital products — from interactive web applications
+      to design systems that scale.
+    </p>
+    <p class="about-bio">
+      With a background that bridges <strong>design and engineering</strong>, I obsess over the details —
+      the micro-interactions, the typography, the transitions — because that's where great products
+      are made. I believe that beautiful code and beautiful design are not mutually exclusive.
+    </p>
+
+    <div class="skills-grid">
+      <div class="skill-item">UI/UX Design</div>
+      <div class="skill-item">React / Next.js</div>
+      <div class="skill-item">Frontend Dev</div>
+      <div class="skill-item">Node.js</div>
+      <div class="skill-item">Motion Design</div>
+      <div class="skill-item">Figma</div>
+      <div class="skill-item">TypeScript</div>
+      <div class="skill-item">Brand Identity</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header">
+    <div>
+      <div class="section-label">// 02 — Projects</div>
+      <h2 class="projects-heading anim">Selected Work</h2>
+    </div>
+    <span class="project-count">04 Projects</span>
+  </div>
+
+  <div class="projects-list">
+
+    <a href="#" class="project-item anim">
+      <span class="project-num">01</span>
+      <div class="project-info">
+        <div class="project-title">Nocturn UI</div>
+        <div class="project-desc">A dark-first design system and component library built for modern SaaS products. Includes 80+ accessible components, a token architecture, and full Figma source files.</div>
+        <div class="project-tags">
+          <span class="tag">Design System</span>
+          <span class="tag">React</span>
+          <span class="tag">Figma</span>
+          <span class="tag">TypeScript</span>
+        </div>
+      </div>
+      <div class="project-preview">
+        <div class="project-preview-inner preview-1">N/UI</div>
+      </div>
+    </a>
+
+    <a href="#" class="project-item anim">
+      <span class="project-num">02</span>
+      <div class="project-info">
+        <div class="project-title">Pulse Analytics</div>
+        <div class="project-desc">Real-time data visualization dashboard for e-commerce brands. Features animated charts, custom query builder, and a live activity feed powered by WebSockets.</div>
+        <div class="project-tags">
+          <span class="tag">Dashboard</span>
+          <span class="tag">D3.js</span>
+          <span class="tag">WebSockets</span>
+          <span class="tag">Next.js</span>
+        </div>
+      </div>
+      <div class="project-preview">
+        <div class="project-preview-inner preview-2">PLZ</div>
+      </div>
+    </a>
+
+    <a href="#" class="project-item anim">
+      <span class="project-num">03</span>
+      <div class="project-info">
+        <div class="project-title">Verdant — Eco App</div>
+        <div class="project-desc">Mobile-first web app helping users track their carbon footprint with gamified challenges and social accountability features. Won 1st place at EcoHack Manila 2024.</div>
+        <div class="project-tags">
+          <span class="tag">Mobile Web</span>
+          <span class="tag">React</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">Hackathon</span>
+        </div>
+      </div>
+      <div class="project-preview">
+        <div class="project-preview-inner preview-3">VRD</div>
+      </div>
+    </a>
+
+    <a href="#" class="project-item anim">
+      <span class="project-num">04</span>
+      <div class="project-info">
+        <div class="project-title">Aurum Brand Identity</div>
+        <div class="project-desc">Complete brand identity for a luxury Filipino jewelry label — logo system, color palette, typography, packaging guidelines, and a bespoke e-commerce storefront.</div>
+        <div class="project-tags">
+          <span class="tag">Branding</span>
+          <span class="tag">E-commerce</span>
+          <span class="tag">Shopify</span>
+          <span class="tag">Print</span>
+        </div>
+      </div>
+      <div class="project-preview">
+        <div class="project-preview-inner preview-4">AUR</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <div class="section-label">// 03 — Contact</div>
+    <h2 class="contact-heading anim">
+      Let's<br><em>Build</em><br>Together
+    </h2>
+  </div>
+
+  <div class="contact-right anim">
+    <p class="contact-sub">
+      Open to freelance projects, full-time roles, and creative collaborations.
+      If you have something worth building, let's talk.
+    </p>
+
+    <div class="contact-links">
+      <a href="https://github.com" target="_blank" class="contact-link">
+        <span>GitHub</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-link">
+        <span>LinkedIn</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="contact-link">
+        <span>Twitter / X</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://dribbble.com" target="_blank" class="contact-link">
+        <span>Dribbble</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <a href="mailto:lance@example.com" class="email-cta">
+      lance@example.com ↗
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Lance G. De Vera. All rights reserved.</span>
+  <span class="footer-built">Built with <span>intention</span> — Manila, PH</span>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const siblings = [...el.parentElement.querySelectorAll('.anim')];
+        const idx = siblings.indexOf(el);
+        el.style.animationDelay = (idx * 0.1) + 's';
+        el.classList.add('visible');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
